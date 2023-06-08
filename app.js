@@ -12,8 +12,8 @@ app.get("/", function(req, res) {
 // Here we will implement our API CALL to our URL
 app.post("/", function(req, res) {
   const cityName = req.body.cityName;
+  //this is the new API that only needs the city name in order to access the object holding the information 
   const geocodingUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=37f29f7631f9aec93c23685b2545c3c8`;
-
   https.get(geocodingUrl, function(response) {
     response.on("data", function(data) {
       const geocodingData = JSON.parse(data);
@@ -22,7 +22,7 @@ app.post("/", function(req, res) {
         res.send();
         return;
       }
-
+//The new variables holding the latitude and longitude
       const latitude = geocodingData[0].lat;
       const longitude = geocodingData[0].lon;
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=37f29f7631f9aec93c23685b2545c3c8&units=imperial`;
